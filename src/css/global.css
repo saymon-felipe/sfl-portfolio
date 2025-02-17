@@ -1,0 +1,440 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code&display=swap');
+
+:root {
+    --gray-high: #DDDDDF;
+    --gray: rgb(201, 201, 201);
+    --blue: rgb(3, 199, 254);
+    --blue-low: rgb(2, 158, 201);
+    --white: #FFFAFF;
+    --black: #0D0D0D;
+    --gray-low: #121212;
+    --green: #00dd12;
+    --red: #ff1414;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Fira Code', monospace;
+}
+
+h1, h2, p {
+    color: var(--black);
+    transition: opacity 0.4s;
+}
+
+.small {
+    font-size: .7em !important;
+}
+
+a {
+    color: var(--gray-high);
+    text-decoration: none;
+}
+
+    a:hover {
+        text-decoration: underline;
+    }
+
+h1 {
+    font-size: 4.2em;
+    width: fit-content;
+}
+
+h2 {
+    font-size: 1.5em;
+}
+
+p, a {
+    font-size: 1.2rem;
+}
+
+@media (max-width: 1050px) {
+    h1 {
+        font-size: 3.2em;
+        margin-bottom: .3rem;
+    }
+    
+    h2, * {
+        font-size: 1em;
+    }
+
+    p, a {
+        font-size: .9rem !important;
+    }
+}
+
+html, body {
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    scroll-behavior: smooth;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent; 
+}
+
+::-webkit-scrollbar-thumb {
+    background: color-mix(in srgb, var(--blue) 50%, transparent); 
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar {
+    width: 7px; 
+}
+
+body {
+    background-image: linear-gradient(to bottom right, var(--black), var(--gray-low));
+    position: relative;
+    caret-color: var(--gray-high);
+}
+
+::selection {
+    background: rgba(3, 199, 254, 0.5);
+    color: var(--white);
+}
+
+.home-button, .close-button {
+    width: calc(2rem + 2vw);
+    height: calc(2rem + 2vw);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #404040;
+    cursor: pointer;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+    top: 4vh;
+}
+
+input, textarea {
+    width: 100% !important;
+    border-radius: 20px !important;
+    background: transparent !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    padding: 1em !important;
+    color: var(--gray-high) !important;
+    resize: none !important;
+}
+
+.form-group {
+    margin: 1rem 0;
+}
+
+.form-group.divide input {
+    margin: .5rem 0;
+}
+
+.form-group.divide input:last-child {
+    margin-bottom: 0;
+}
+
+@media (max-width: 1050px) {
+    .form-group.divide {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    
+        .form-group.divide input {
+            width: 48.5% !important;
+            margin: 0;
+        }
+}
+
+.btn {
+    border-radius: 30px;
+    border: 1px solid var(--gray-high);
+    color: var(--gray-high);
+    padding: .8rem 2rem;
+    background: transparent;
+    cursor: pointer;
+    transition: background 0.4s, color 0.4s;
+    font-weight: 600;
+}
+
+    .btn:hover {
+        background: var(--gray-high);
+        color: var(--black);
+    }
+
+    .btn:active {
+        background: var(--gray);
+    }
+
+.btn-primary {
+    border-color: var(--blue);
+    color: var(--blue);
+}
+
+    .btn-primary:hover {
+        background: var(--blue);
+        color: var(--white);
+    }
+
+    .btn-primary:active {
+        background: var(--blue-low);
+    }
+
+.form-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.response {
+    text-align: center;
+}
+
+.success {
+    color: var(--green);
+}
+
+.error {
+    color: var(--red);
+}
+
+.no-animation {
+    animation: none !important;
+    transition: none !important;
+}
+
+section {
+    width: 35vw;
+    max-height: 90vh;
+    aspect-ratio: 3/4;
+    display: grid;
+    place-items: center;
+    position: relative;
+    border: 5px solid rgba(201, 201, 201, 0.7); /* Borda cinza */
+    box-shadow: 7px 7px 0 rgba(0, 0, 0, 0.8);
+    border-radius: calc(10px + 1vw);
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+
+    & > div:first-child {
+        overflow: hidden;
+        width: 100%;
+        height: 100%;
+        border-radius: 1vw;
+    }
+
+    & img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        filter: drop-shadow(10px 10px 15px rgba(0, 0, 0, 0.7));
+        border-radius: 1vw;
+        user-select: none;
+    }
+
+    & i {
+        font-size: 4rem;
+        font-style: normal;
+        user-select: none;
+    }
+
+    & .card-informations {
+        position: absolute;
+        width: 100%;
+        padding: .5rem;
+        background: rgba(201, 201, 201, 0.7);
+        backdrop-filter: blur(10px);
+        bottom: 0;
+        display: flex;
+        place-items: center;
+        gap: 2rem;
+        justify-content: center;
+        border-radius: 0 0 calc(5px + 1vw) calc(5px + 1vw);
+
+        & p, & span {
+            color: var(--black);
+            font-weight: 600;
+            user-select: none;
+        }
+
+        & h2 {
+            user-select: none;
+        }
+    }
+
+    &.square {
+        width: 15vw;
+        aspect-ratio: 1/1;
+    }
+
+    &.long {
+        width: 120px;
+        aspect-ratio: initial;
+        max-height: 37vh;
+        overflow: initial;
+
+        & img {
+            filter: drop-shadow(0px 0px 2px rgba(255, 255, 255, 0.7));
+        }
+
+        & .card-informations {
+            position: absolute;
+            transform: rotate(-90deg);
+            background: transparent;
+            width: 300%;
+            left: -171%;
+            backdrop-filter: none;
+            bottom: 0;
+            top: 0;
+            margin: auto;
+            display: flex;
+            place-items: center;
+            justify-content: center;
+    
+            & p, & span {
+                color: var(--white);
+                font-weight: 600;
+                user-select: none;
+            }
+        }
+
+        &.inverted .card-informations {
+            left: -25%;
+            transform: rotate(90deg);
+        }
+    }
+}
+
+.vertical {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.double-click {
+    position: absolute;
+    top: 110%;
+    width: 100%;
+    text-align: center;
+    color: var(--white);
+    transition: opacity 0.4s;
+    user-select: none;
+
+    & span {
+        animation: blink 1.5s ease-in-out infinite alternate;
+    }
+}
+
+@keyframes blink {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.3;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+.scroll-loop1 {
+    animation: scrollLoop 20s linear infinite;
+}
+
+.scroll-loop2 {
+    animation: scrollLoop 17s linear infinite;
+}
+
+.scroll-loop3 {
+    animation: scrollLoop 23s linear infinite;
+}
+
+.scroll-loop4 {
+    animation: scrollLoop 19s linear infinite;
+}
+
+@keyframes scrollLoop {
+    from {
+        transform: translateY(0);
+    }
+
+    to {
+        transform: translateY(-50%);
+    }
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.floating1 {
+    animation: floating1 2.5s ease-in-out infinite alternate;
+}
+
+.floating2 {
+    animation: floating2 2s ease-in-out infinite alternate;
+}
+
+.floating3 {
+    animation: floating3 3s ease-in-out infinite alternate;
+}
+
+@keyframes floating1 {
+    0% {
+        transform: translateY(0);
+    }
+
+    100% {
+        transform: translateY(-5px);
+    }
+}
+
+@keyframes floating2 {
+    0% {
+        transform: translateY(0);
+    }
+
+    100% {
+        transform: translateY(-2px);
+    }
+}
+
+@keyframes floating3 {
+    0% {
+        transform: translateY(0);
+    }
+
+    100% {
+        transform: translateY(-4px);
+    }
+}
+
+.tooltip {
+    position: absolute;
+    z-index: 4;
+    
+    & hr {
+        border-color: var(--green);
+        animation: initTooltip 0.4s ease-in-out forwards;
+        margin: .5rem 0;
+    }
+
+    & h2, & p {
+        user-select: none;
+        color: var(--blue);
+        text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.8);
+    }
+}
+
+@keyframes initTooltip {
+    0% {
+        width: 0;
+    }
+
+    100% {
+        width: 100%;
+    }
+}

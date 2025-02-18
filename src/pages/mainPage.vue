@@ -241,6 +241,7 @@ lottie-player {
     width: 50px;
     height: 50px;
     display: none;
+    z-index: 5;
 }
 .portfolio-main-page {
     height: 100vh;

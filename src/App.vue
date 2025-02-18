@@ -25,7 +25,8 @@ export default {
   mixins: [globalMethods],
   data() {
     return {
-      loading: true
+      loading: true,
+      modalData: null
     }
   },
   watch: {

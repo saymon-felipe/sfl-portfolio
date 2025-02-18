@@ -47,7 +47,7 @@
         <div id="projects">
             <section class="floating1">
                 <div class="project-images">
-                    <div class="project-image" v-for="imagem in imagens" :key="imagem.nome">
+                    <div class="project-image" v-for="imagem in imagens" :key="imagem.nome" v-on:click="modalContent = imagem">
                         <img :src="imagem.caminho" :alt="imagem.nome">
                         <p style="text-transform: capitalize;">{{ imagem.nome }}</p>
                     </div>
@@ -103,14 +103,20 @@
                 </div>
             </section>
         </div>
+        <modalComponent :modalContent="modalContent" @closeModal="modalContent = null"  />
     </main>
 </template>
 <script>
+import { globalMethods } from '@/js/globalMethods';
+import modalComponent from "./modalComponent.vue";
+
 export default {
     name: "principalComponent",
+    mixins: [globalMethods],
     data() {
         return {
-            imagens: []
+            imagens: [],
+            modalContent: null
         }
     },
     created() {
@@ -118,15 +124,77 @@ export default {
     },
     methods: {
         carregarImagens() {
-            // Busca todas as imagens dentro de `src/assets/images/`
-            const contexto = require.context('@/assets/img/projects', false, /\.(png|jpe?g|svg|webp)$/);
-            
-            // Mapeia os arquivos encontrados para um array de objetos
-            this.imagens = contexto.keys().map((caminho) => ({
-                nome: caminho.replace('./', '').replace(".png", "").replace(/-/g, " "), // Remove './' do início do nome
-                caminho: contexto(caminho) // Obtém a URL da imagem processada pelo Webpack
-            }));
+            this.imagens = [
+                {
+                    nome: "AgendasPro",
+                    caminho: require("@/assets/img/projects/agendaspro.png"),
+                    descricao: "Aplicativo de agendamentos para pequenas empresas."
+                },
+                {
+                    nome: "CDA (E-Sports)",
+                    caminho: require("@/assets/img/projects/cda.png"),
+                    descricao: "Aplicativo desenvolvido para gerenciamento de tarefas."
+                },
+                {
+                    nome: "Cademint",
+                    caminho: require("@/assets/img/projects/cademint.png"),
+                    descricao: "Site de apresentação do aplicativo Cademint, um app de gerenciamento de tarefas."
+                },
+                {
+                    nome: "Cademint App",
+                    caminho: require("@/assets/img/projects/cademint-system.png"),
+                    descricao: "App de gerenciamento de tarefas."
+                },
+                {
+                    nome: "Gourmetech",
+                    caminho: require("@/assets/img/projects/gourmetech.png"),
+                    descricao: "Sistema ERP para comércios de varejo e restaurantes."
+                },
+                {
+                    nome: "IEQ Farol",
+                    caminho: require("@/assets/img/projects/ieq-farol.png"),
+                    descricao: "Site institucional de organização religiosa."
+                },
+                {
+                    nome: "Mokaly",
+                    caminho: require("@/assets/img/projects/mokaly.png"),
+                    descricao: "Site de apresentação da Mokaly, um app de gerenciamento de equipes distribuídas."
+                },
+                {
+                    nome: "Portal Aluno Solutto",
+                    caminho: require("@/assets/img/projects/portal-aluno-solutto.png"),
+                    descricao: "Página inicial do portal do aluno do sistema Solutto - ERP para franquias."
+                },
+                {
+                    nome: "Rabsystems",
+                    caminho: require("@/assets/img/projects/rabsystems.png"),
+                    descricao: "Site corporativo da Rabsystems, agência WEB."
+                },
+                {
+                    nome: "Rabsystems App",
+                    caminho: require("@/assets/img/projects/rabsystems-system.png"),
+                    descricao: "Sistema de gerenciamento de clientes da empresa Rabsystems."
+                },
+                {
+                    nome: "Solutto",
+                    caminho: require("@/assets/img/projects/solutto.png"),
+                    descricao: "Sistema interno Solutto - ERP para franquias."
+                },
+                {
+                    nome: "Time Travel Old",
+                    caminho: require("@/assets/img/projects/time-travel-old.png"),
+                    descricao: "Site de conspirações feito com um visual retrô anos 2000."
+                },
+                {
+                    nome: "Yuume",
+                    caminho: require("@/assets/img/projects/yuume.png"),
+                    descricao: "Rede social para conexão de pessoas que preferem algo alternativo."
+                }
+            ];
         }
+    },
+    components: {
+        modalComponent
     }
 }
 </script>

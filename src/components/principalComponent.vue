@@ -1,11 +1,11 @@
 <template>
     <main>
-        <section class="square floating1 pointer" id="development" title="Development" @dblclick="goToDevelopment()" subtitle="See my skills and projects.">
+        <section class="square floating1 pointer" id="development" title="Development" @click="goToDevelopment()" subtitle="See my skills and projects.">
             <i style="margin-top: -15%;">💻</i>
             <div class="card-informations">
                 <p>Development</p>
             </div>
-            <p class="double-click">&gt; <span>Double click</span> &lt;</p>
+            <p class="double-click">&gt; <span>Click</span> &lt;</p>
         </section>
         <section class="photo floating2" id="principal" title="Fullstack engineer & Author" subtitle="Age: 23y, Interests: Technology, Literature">
             <div>
@@ -24,7 +24,7 @@
             <div class="card-informations">
                 <p>Literature</p>
             </div>
-            <p class="double-click">&gt; <span>Double click</span> &lt;</p>
+            <p class="double-click">&gt; <span>Click</span> &lt;</p>
         </section>
     </main>
 </template>

@@ -72,8 +72,9 @@ export const globalMethods = {
         },
         checkClickAndShowTooltip: function () {
             let timeout;
-
+            
             $("section.photo").on("click", (e) => {
+                console.log(e)
                 $(".tooltip").remove();
                 let target = $(e.delegateTarget);
 
@@ -130,6 +131,7 @@ export const globalMethods = {
     },
     data() {
         return {
+            modalData: null
         }
     }
 }

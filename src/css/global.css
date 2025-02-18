@@ -414,7 +414,7 @@ section {
 
 .tooltip {
     position: absolute;
-    z-index: 4;
+    z-index: 6;
     
     & hr {
         border-color: var(--green);

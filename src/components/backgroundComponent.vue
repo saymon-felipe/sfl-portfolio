@@ -1,7 +1,6 @@
 <template>
   <div id="canvasContainer" class="webgl"></div>
 </template>
-
 <script>
 import * as THREE from 'three';
 import $ from 'jquery';
@@ -67,20 +66,15 @@ export default {
 
       // Movimento pelo giroscópio
       let gyroX = 0, gyroY = 0;
-      console.log("DeviceOrientationEvent:", window.DeviceOrientationEvent);
-console.log("DeviceMotionEvent:", window.DeviceMotionEvent);
 
-      if (window.DeviceOrientationEvent.isTrusted) {
+      if (window.DeviceOrientationEvent) {
         window.addEventListener('deviceorientation', (event) => {
-          console.log(event)
-          // Normalizar valores
-          let beta = event.beta || 0;  // -90 (para baixo) a 90 (para cima)
-          let gamma = event.gamma || 0; // -45 (esquerda) a 45 (direita)
+          let beta = event.beta || 0;  
+          let gamma = event.gamma || 0; 
 
-          // Converte para valores entre -1 e 1
-          gyroX = gamma / 45; // Esquerda/Direita
-          gyroY = beta / 90;  // Cima/Baixo
-        }, true);
+          gyroX = (gamma / 45) * 0.5; 
+          gyroY = (beta / 90) * 0.5; 
+        });
       }
 
       let time = 0;
@@ -88,16 +82,15 @@ console.log("DeviceMotionEvent:", window.DeviceMotionEvent);
       function animate() {
         requestAnimationFrame(animate);
 
-        // Movimento da câmera combinando mouse e giroscópio
-        camera.position.x += (mouseX * 0.05 + gyroX * 0.1 - camera.position.x) * 0.1;
-        camera.position.y += (-mouseY * 0.05 - gyroY * 0.1 - camera.position.y) * 0.1;
+        camera.position.x += (mouseX * 0.05 + gyroX * 0.2 - camera.position.x) * 0.1; 
+        camera.position.y += (-mouseY * 0.05 - gyroY * 0.2 - camera.position.y) * 0.1; 
         camera.lookAt(scene.position);
 
-        time += 0.001; // Incremento de tempo para criar movimento suave
+        time += 0.001; 
         for (let i = 0; i < starsCount; i++) {
-            positions[i * 3] += Math.sin(time + i) * 0.0005; // Movimento lento no eixo X
-            positions[i * 3 + 1] += Math.cos(time + i) * 0.0005; // Movimento lento no eixo Y
-            positions[i * 3 + 2] += Math.sin(time + i * 0.5) * 0.0005; // Movimento sutil no eixo Z
+            positions[i * 3] += Math.sin(time + i) * 0.0005; 
+            positions[i * 3 + 1] += Math.cos(time + i) * 0.0005; 
+            positions[i * 3 + 2] += Math.sin(time + i * 0.5) * 0.0005; 
         }
         
         // Atualizando as posições das estrelas
@@ -116,7 +109,6 @@ console.log("DeviceMotionEvent:", window.DeviceMotionEvent);
   }
 };
 </script>
-
 <style scoped>
 .webgl {
   position: fixed;

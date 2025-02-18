@@ -67,6 +67,8 @@ export default {
 
       // Movimento pelo giroscópio
       let gyroX = 0, gyroY = 0;
+      console.log("DeviceOrientationEvent:", window.DeviceOrientationEvent);
+console.log("DeviceMotionEvent:", window.DeviceMotionEvent);
 
       if (window.DeviceOrientationEvent.isTrusted) {
         window.addEventListener('deviceorientation', (event) => {

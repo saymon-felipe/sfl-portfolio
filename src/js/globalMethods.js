@@ -5,6 +5,8 @@ export const globalMethods = {
         typeText: function (elementId, invert = false, type = "") {
             return new Promise((resolve) => {
                 const $element = $(`#${elementId}`);
+                $element.css("opacity", 1);
+
                 const speed = $element.attr("speed") || 150;
 
                 if ($element.length == 0 || !$element.is(":visible")) return;
@@ -74,7 +76,6 @@ export const globalMethods = {
             let timeout;
             
             $("section.photo").on("click", (e) => {
-                console.log(e)
                 $(".tooltip").remove();
                 let target = $(e.delegateTarget);
 

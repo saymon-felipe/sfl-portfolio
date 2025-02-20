@@ -5,17 +5,19 @@
         </button>
         <img :src="modalContent.caminho">
         <div class="image-details">
-            <h2>{{ modalContent.nome }}</h2>
-            <p>{{ modalContent.descricao }}</p>
+            <h2 id="modal-title" speed="70" :datatext="modalContent.nome">{{ modalContent.nome }}</h2>
+            <p id="modal-subtitle" speed="60" :datatext="modalContent.descricao">{{ modalContent.descricao }}</p>
         </div>
     </div>
 </template>
 <script>
 import $ from 'jquery';
 import gsap from 'gsap';
+import { globalMethods } from '@/js/globalMethods';
 
 export default {
     name: "modalComponent",
+    mixins: [globalMethods],
     props: ["modalContent"],
     watch: {
         modalContent: function () {
@@ -47,6 +49,10 @@ export default {
                 });
 
                 setTimeout(() => {
+                    this.typeText("modal-title", false, "forwards").then(() => {
+                        this.typeText("modal-subtitle", false, "forwards");
+                    });
+
                     gsap.to(modalImg, {
                         opacity: 1,
                         duration: 0.3
@@ -160,5 +166,14 @@ button {
     place-items: center;
     opacity: 0;
     transition: opacity 0.4s ease-in-out;
+}
+
+.image-details {
+    text-align: center;
+    place-items: center;
+
+    & h2, & p {
+        opacity: 0;
+    }
 }
 </style>

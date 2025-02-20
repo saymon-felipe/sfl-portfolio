@@ -56,7 +56,7 @@ export default {
   mounted: function () {
     let self = this;
     let allImages = $('img');
-    console.log(allImages)
+    
     let loadedImagesCount = 0;
 
     if (allImages.length === 0) {

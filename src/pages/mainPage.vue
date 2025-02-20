@@ -1,6 +1,7 @@
 <template>
     <div class="portfolio-main-page">
-        <backgroundComponent />
+        <backgroundDefaultComponent id="default-background" />
+        <backgroundDevelopmentComponent id="development-background" />
         <principalComponent @changeView="handleChangeView" />
         <lottie-player id="select-animation" background="transparent" speed="10" autoplay></lottie-player>
         <developmentComponent v-show="false" id="development-component" />
@@ -8,7 +9,8 @@
 </template>
 <script>
 import { globalMethods } from "../js/globalMethods.js";
-import backgroundComponent from "@/components/backgroundComponent.vue";
+import backgroundDefaultComponent from "@/components/backgroundDefaultComponent.vue";
+import backgroundDevelopmentComponent from "@/components/backgroundDevelopmentComponent.vue";
 import principalComponent from "@/components/principalComponent.vue";
 import selectAnimationJson from "../assets/animations/select.json";
 import developmentComponent from "@/components/developmentComponent.vue";
@@ -20,16 +22,35 @@ export default {
     mixins: [globalMethods],
     data() {
         return {
+            view: "default"
         }
     },
     watch: {
+        view: function () {
+            this.changeBackground(this.view);
+        }
     },
     methods: {
+        changeBackground: function (type) {
+            let defaultbackground = $("#default-background");
+            let developmentbackground = $("#development-background");
+
+            if (type == "development") {
+                defaultbackground.css("opacity", 0);
+                developmentbackground.css("opacity", 1);
+
+                return;
+            }
+
+            defaultbackground.css("opacity", 1);
+            developmentbackground.css("opacity", 0);
+        },
         handleChangeView: function (event) {
             $(".tooltip").remove();
 
             if (event == "development") {
                 this.goToDevelopment();
+                this.view = event;
             }
         },
         hideDevelopmentSection: function () {
@@ -94,13 +115,13 @@ export default {
             }, 150)
         },
         resetLayout: function () {
-            const webgl = $(".webgl");
             let literature = $("#literature");
             let principal = $("#principal");
             let development = $("#development");
 
             this.hideDevelopmentSection().then(() => {
                 development.find(".card-informations p").html("Development");
+                this.view = "default";
 
                 gsap.to(development, {
                     right: 0,
@@ -113,7 +134,11 @@ export default {
                 });
 
                 setTimeout(() => {
-                    webgl.css("transform", "scale(1.1)");
+                    let defaultbackground = $("#default-background");
+                    let developmentbackground = $("#development-background");
+
+                    defaultbackground.css("transform", "scale(1.1)");
+                    developmentbackground.css("transform", "scale(1.1) translateX(0)");
 
                     gsap.to(literature, {
                         x: 0,
@@ -135,7 +160,9 @@ export default {
             });
         },
         goToDevelopment: function () {
-            const webgl = $(".webgl");
+            let defaultbackground = $("#default-background");
+            let developmentbackground = $("#development-background");
+
             let literature = $("#literature");
             let principal = $("#principal");
             let development = $("#development");
@@ -175,7 +202,8 @@ export default {
                 });
             }, 100)
 
-            webgl.css("transform", "scale(1.1) translateX(2vw)");
+            defaultbackground.css("transform", "scale(1.1) translateX(2vw)");
+            developmentbackground.css("transform", "scale(1.1) translateX(2vw)");
             $("#development-component").show();
             this.showDevelopmentSection();
         },
@@ -198,6 +226,7 @@ export default {
     },
     mounted: function () {
         this.checkClickAndShowTooltip();
+        this.changeBackground("default");
 
         const player = document.querySelector("#select-animation");
 
@@ -229,7 +258,8 @@ export default {
         });
     },
     components: {
-        backgroundComponent,
+        backgroundDefaultComponent,
+        backgroundDevelopmentComponent,
         principalComponent,
         developmentComponent
     }
@@ -250,5 +280,9 @@ lottie-player {
     align-items: center;
     justify-content: center;
     gap: 2rem;
+}
+
+#default-background, #development-background {
+    transition: all 0.7s ease-in-out;
 }
 </style>

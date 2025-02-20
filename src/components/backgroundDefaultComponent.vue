@@ -1,5 +1,5 @@
 <template>
-  <div id="canvasContainer" class="webgl"></div>
+  <div id="canvasContainer1" class="webgl"></div>
 </template>
 <script>
 import * as THREE from 'three';
@@ -13,7 +13,7 @@ export default {
   },
   methods: {
     initScene() {
-      const container = $('#canvasContainer');
+      const container = $('#canvasContainer1');
       const scene = new THREE.Scene();
       const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
       camera.position.z = 5;
@@ -123,6 +123,6 @@ export default {
   background-position: center;
   background-attachment: fixed;
   transform: scale(1.1);
-  transition: transform 0.4s ease-in-out;
+  transition: transform 0.7s ease-in-out;
 }
 </style>

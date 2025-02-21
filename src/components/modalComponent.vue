@@ -119,7 +119,7 @@ export default {
     flex-direction: column;
     gap: 1rem;
     padding: 1rem;
-    z-index: 5;
+    z-index: 9999;
     border-radius: calc(10px + 1vw);
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);

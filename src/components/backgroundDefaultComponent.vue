@@ -1,5 +1,5 @@
 <template>
-  <div id="canvasContainer1" class="webgl"></div>
+  <div class="webgl2"></div>
 </template>
 <script>
 import * as THREE from 'three';
@@ -7,13 +7,13 @@ import $ from 'jquery';
 
 export default {
   mounted() {
-    $(document).ready(() => {
+    this.$nextTick(() => {
       this.initScene();
-    });
+    })
   },
   methods: {
     initScene() {
-      const container = $('#canvasContainer1');
+      const container = $('.webgl2');
       const scene = new THREE.Scene();
       const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
       camera.position.z = 5;
@@ -82,8 +82,8 @@ export default {
       function animate() {
         requestAnimationFrame(animate);
 
-        camera.position.x += (mouseX * 0.05 + gyroX * 0.2 - camera.position.x) * 0.1; 
-        camera.position.y += (-mouseY * 0.05 - gyroY * 0.2 - camera.position.y) * 0.1; 
+        camera.position.x += (mouseX * 0.05 + gyroX * 0.2 - camera.position.x) * 0.5; 
+        camera.position.y += (-mouseY * 0.05 - gyroY * 0.2 - camera.position.y) * 0.5; 
         camera.lookAt(scene.position);
 
         time += 0.001; 
@@ -110,7 +110,7 @@ export default {
 };
 </script>
 <style scoped>
-.webgl {
+.webgl2 {
   position: fixed;
   top: 0;
   left: 0;

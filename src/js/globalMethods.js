@@ -126,13 +126,130 @@ export const globalMethods = {
                     }, 5000);
                 }
             })
+        },
+        //Funções nativas android
+        checkIfDeviceIsInPortraitMode: function() {
+            if (window.matchMedia("(orientation: landscape)").matches) {
+                return false;
+            } else {
+                return true;
+            }
+        },
+        isMobileDevice: function () {
+            return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        },
+        initiateFullScreen: function (event) {
+            if (event) {
+                let element = document.documentElement;
+
+                if (element.requestFullscreen) {
+                    element.requestFullscreen();
+                } else if (element.mozRequestFullScreen) { /* Firefox */
+                    element.mozRequestFullScreen();
+                } else if (element.webkitRequestFullscreen) { /* Chrome, Safari e Opera */
+                    element.webkitRequestFullscreen();
+                } else if (element.msRequestFullscreen) { /* IE/Edge */
+                    element.msRequestFullscreen();
+                }
+            }
+        },
+        requestFullScreen: function () {
+            this.fillModalVariables("Full screen", "This page works better in full screen.", "fas fa-expand-arrows-alt");
+        },
+        checkIfIsFullScreen: function () {
+            let isFullScreen = document.fullscreenElement || document.mozFullScreenElement || document.webkitFullscreenElement || document.msFullscreenElement;
+
+            if (this.isMobileDevice() && isFullScreen) {
+                return true;
+            }
+            return false;
+        },
+        handleFullscreenChange: function () {
+            if (!this.isMobileDevice()) return;
+
+            if (!this.checkIfIsFullScreen()) {
+                this.requestFullScreen();
+            } else {
+                if (this.checkIfDeviceIsInPortraitMode()) {
+                    this.fillModalVariables("Turn the device", "Please rotate your phone to landscape mode.");
+                } else {
+                    this.hideModal();
+                }
+            }
+        },
+        //Funções de controle de orientação
+        handleOrientationChange: function () {
+            setTimeout(() => {
+                if (this.checkIfDeviceIsInPortraitMode()) {
+                    this.fillModalVariables("Turn the device", "Please rotate your phone to landscape mode.");
+                } else {
+                    this.handleFullscreenChange();
+                }
+            }, 10)
+        },
+        initEventListeners: function () {
+            this.handleFullscreenChange();
+
+            window.addEventListener("orientationchange", () => {
+                this.handleOrientationChange();
+            });
+    
+            document.addEventListener("fullscreenchange", () => {
+                this.handleFullscreenChange();
+            });
+            document.addEventListener("mozfullscreenchange", () => {
+                this.handleFullscreenChange();
+            });
+            document.addEventListener("webkitfullscreenchange", () => {
+                this.handleFullscreenChange();
+            });
+            document.addEventListener("msfullscreenchange", () => {
+                this.handleFullscreenChange();
+            });
+        },
+        fillModalVariables: function (main_text, complementary_text, modal_icon) {
+            this.hideModal().then(() => {
+                this.showModal = true;
+                this.modalTitle = main_text;
+                this.modalText = complementary_text;
+                this.modalIcon = modal_icon;
+            });
+        },
+        hideModal: function () {
+            return new Promise((resolve) => {
+                setTimeout(() => {
+                    this.showModal = false;
+                    this.modalTitle = "";
+                    this.modalText = "";
+                    this.modalIcon = "";
+
+                    resolve();
+                }, 100)
+            })
         }
     },
     watch: {
+        showModal: function () {
+            setTimeout(() => {
+                if (this.showModal) {
+                    let modal = $(".modal");
+                    let modalPosition = modal.position();
+
+                    let calculatedX = modalPosition.left;
+                    let calculatedY = modalPosition.top;
+                    
+                    modal.css("transform", `translate(-${calculatedX}px, -${calculatedY}px)`);
+                }
+            }, 1)
+        }
     },
     data() {
         return {
-            modalData: null
+            modalData: null,
+            showModal: false,
+            modalTitle: "",
+            modalText: "",
+            modalIcon: ""
         }
     }
 }

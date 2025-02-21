@@ -9,6 +9,7 @@
     --black: #0D0D0D;
     --gray-low: #121212;
     --green: #00dd12;
+    --green-low: #119c1d;
     --red: #ff1414;
 }
 
@@ -237,6 +238,7 @@ section {
         font-size: 4rem;
         font-style: normal;
         user-select: none;
+        transition: all 0.4s ease-in-out;
     }
 
     & .card-informations {
@@ -251,6 +253,7 @@ section {
         gap: 2rem;
         justify-content: center;
         border-radius: 0 0 calc(5px + 1vw) calc(5px + 1vw);
+        transition: opacity 0.4s ease-in-out;
 
         & p, & span {
             color: var(--black);
@@ -312,7 +315,7 @@ section {
     gap: 1rem;
 }
 
-.double-click {
+.double-click, .responsive-double-click {
     position: absolute;
     top: 110%;
     width: 100%;
@@ -320,10 +323,15 @@ section {
     color: var(--white);
     transition: opacity 0.4s;
     user-select: none;
+    white-space: nowrap;
 
     & span {
         animation: blink 1.5s ease-in-out infinite alternate;
     }
+}
+
+.responsive-double-click {
+    display: none;
 }
 
 @keyframes blink {
@@ -438,3 +446,50 @@ section {
         width: 100%;
     }
 }
+
+.personalized-input-range {
+    -webkit-appearance: none; /* Remove a aparência padrão do input */
+    width: 100%; /* Largura total */
+    height: 8px; /* Altura da barra */
+    background: var(--gray-high); /* Cor da barra */
+    border-radius: 5px; /* Bordas arredondadas */
+    outline: none; /* Remove a borda ao focar */
+    margin: .7rem auto;
+    border: none !important;
+}
+
+    .personalized-input-range::-webkit-slider-thumb {
+        -webkit-appearance: none; /* Remove a aparência padrão do thumb */
+        appearance: none;
+        width: 15px; /* Largura do thumb */
+        height: 15px; /* Altura do thumb */
+        background: var(--gray-low); /* Cor do thumb (círculo) */
+        border-radius: 50%; /* Tornar o thumb circular */
+        cursor: pointer; /* Cursor de ponteiro ao passar por cima */
+        border: 1px solid var(--gray-low); /* Borda ao redor do thumb */
+        position: relative;
+        top: -5px; /* Ajusta a posição vertical do thumb */
+    }
+
+    .personalized-input-range::-moz-range-thumb {
+        width: 15px; /* Largura do thumb */
+        height: 15px; /* Altura do thumb */
+        background: var(--gray-low); /* Cor do thumb (círculo) */
+        border-radius: 50%; /* Tornar o thumb circular */
+        cursor: pointer; /* Cursor de ponteiro ao passar por cima */
+        border: 1px solid var(--gray-low); /* Borda ao redor do thumb */
+    }
+
+    .personalized-input-range::-webkit-slider-runnable-track {
+        width: 100%;
+        height: 5px;
+        background: var(--gray-high); /* Cor da barra */
+        border-radius: 5px; /* Bordas arredondadas */
+    }
+
+    .personalized-input-range::-moz-range-track {
+        width: 100%;
+        height: 5px;
+        background: var(--gray-high); /* Cor da barra */
+        border-radius: 5px; /* Bordas arredondadas */
+    }

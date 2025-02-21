@@ -5,6 +5,7 @@
             <div class="card-informations">
                 <p>Development</p>
             </div>
+            <p class="responsive-double-click">&gt;</p>
             <p class="double-click">&gt; <span>Click</span> &lt;</p>
         </section>
         <section class="photo floating2" id="principal" title="Fullstack engineer & Author" subtitle="Age: 23y, Interests: Technology, Literature">
@@ -24,7 +25,7 @@
             <div class="card-informations">
                 <p>Literature</p>
             </div>
-            <p class="double-click">&gt; <span>Click</span> &lt;</p>
+            <p class="double-click">&gt; <span>Coming soon</span> &lt;</p>
         </section>
     </main>
 </template>

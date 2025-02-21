@@ -133,7 +133,7 @@ export default {
                 {
                     nome: "CDA (E-Sports)",
                     caminho: require("@/assets/img/projects/cda.png"),
-                    descricao: "Aplicativo desenvolvido para gerenciamento de tarefas."
+                    descricao: "Site de apresentação de um time de e-sports."
                 },
                 {
                     nome: "Cademint",

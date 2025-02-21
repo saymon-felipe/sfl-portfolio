@@ -23,13 +23,13 @@ export default {
         modalContent: function () {
             this.$nextTick(() => {
                 if (this.modalContent != null) {
-                    this.showModal();
+                    this.showPageModal();
                 }
             })
         }
     },
     methods: {
-        showModal: function () {
+        showPageModal: function () {
             let modal = $(".modal");
             let modalImg = $(".modal img");
             let modalDetails = $(".modal .image-details");

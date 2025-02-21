@@ -5,6 +5,8 @@
         <principalComponent @changeView="handleChangeView" />
         <lottie-player id="select-animation" background="transparent" speed="10" autoplay></lottie-player>
         <developmentComponent v-show="false" id="development-component" />
+        <supportModal v-if="showModal" :modaltitle="modalTitle" :modaltext="modalText" :modalicon="modalIcon" @saveModal="initiateFullScreen($event)" />
+        <audioPlayer />
     </div>
 </template>
 <script>
@@ -14,6 +16,8 @@ import backgroundDevelopmentComponent from "@/components/backgroundDevelopmentCo
 import principalComponent from "@/components/principalComponent.vue";
 import selectAnimationJson from "../assets/animations/select.json";
 import developmentComponent from "@/components/developmentComponent.vue";
+import supportModal from "@/components/supportModal.vue";
+import audioPlayer from "@/components/audioPlayer.vue";
 import $ from 'jquery';
 import gsap from 'gsap';
 
@@ -123,9 +127,17 @@ export default {
                 development.find(".card-informations p").html("Development");
                 this.view = "default";
 
+                if (this.isMobileDevice()) {
+                    development.find(".responsive-double-click").hide();
+                    development.find(".double-click").show();
+                    development.find(".card-informations").css("opacity", 1);
+                    development.find("i").css("font-size", "4rem");
+                }
+
                 gsap.to(development, {
                     right: 0,
                     top: 0,
+                    width: "15vw",
                     duration: 1,
                     ease: "cubic-bezier(0.25, 0.8, 0.25, 1)",
                     onComplete: () => {
@@ -191,9 +203,17 @@ export default {
                 development.addClass("no-animation").addClass("selected");
                 let deslocamento = this.getCornerPosition(development);
 
+                if (this.isMobileDevice()) {
+                    development.find(".responsive-double-click").show();
+                    development.find(".double-click").hide();
+                    development.find(".card-informations").css("opacity", 0);
+                    development.find("i").css("font-size", "2rem");
+                }
+
                 gsap.to(development, {
                     right: deslocamento.x,
                     top: deslocamento.y,
+                    width: this.isMobileDevice() ? "70px" : "15vw",
                     duration: 1,
                     ease: "cubic-bezier(0.25, 0.8, 0.25, 1)",
                     onComplete: () => {
@@ -214,9 +234,17 @@ export default {
             const janelaLargura = window.innerWidth;
             const janelaAltura = window.innerHeight;
 
+            let differenceX = rect.width;
+            let differencey = rect.height;
+
+            if (this.isMobileDevice()) {
+                differenceX = (rect.width - rect.width / 2);
+                differencey = (rect.height - rect.height / 2);
+            }
+
             // Calcula o deslocamento necessário para mover para o canto superior direito
-            const deslocamentoX = janelaLargura - rect.width; // Largura da janela - Largura do elemento
-            const deslocamentoY = janelaAltura - rect.height;
+            const deslocamentoX = janelaLargura - differenceX; // Largura da janela - Largura do elemento
+            const deslocamentoY = janelaAltura - differencey;
 
             return {
                 x: -(deslocamentoX - rect.left - 50),
@@ -256,12 +284,16 @@ export default {
             y: "100vh",
             duration: 0.1
         });
+
+        this.initEventListeners();
     },
     components: {
         backgroundDefaultComponent,
         backgroundDevelopmentComponent,
         principalComponent,
-        developmentComponent
+        developmentComponent,
+        supportModal,
+        audioPlayer
     }
 }
 </script>
